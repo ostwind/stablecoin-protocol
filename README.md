@@ -1,66 +1,37 @@
-## Foundry
+## Stablecoin pegged to USD
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+DSC (decentralized stablecoin) is backed by deposited wETH, wBTC. Value of collateral checked with Chainlink Price Feed.
 
-Foundry consists of:
+DSCEngine.sol is the deposit contract to redeem Ethereum and bitcoin for DSC, and minting DSC after inputting collateral.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Min collaterization: $2 in collateral for every $1 DSC loaned
 
-## Documentation
+When an user is undercollateralized, a liquidator has the option to pay back X DSC to recieve $(1.1 X) worth of the debtor's collateral.  
 
-https://book.getfoundry.sh/
+Follows Patrick Collin's Cyfrin 2023 course on Stablecoin.
 
-## Usage
+*Stability mechanism (minting): algorithmic*
+No controlling entity
 
-### Build
+*Collateral: Exogenous (crypto)*
+Ethereum and Bitcoin collateralizes this stablecoin. Specifically wETH, wBTC.
 
-```shell
-$ forge build
-```
+### Roadmap
 
-### Test
+A collateral backed by Treasury bills and LSDs. 
+    - Value of collateral assets confirmed by Chainlink Oracles.
 
-```shell
-$ forge test
-```
+### Test coverage
 
-### Format
+| File                            | % Lines         | % Statements    | % Branches     | % Funcs        |
+|---------------------------------|-----------------|-----------------|----------------|----------------|
+| script/DeployDSC.s.sol          | 0.00% (0/11)    | 0.00% (0/14)    | 100.00% (0/0)  | 0.00% (0/1)    |
+| script/HelperConfig.s.sol       | 0.00% (0/10)    | 0.00% (0/15)    | 0.00% (0/2)    | 0.00% (0/2)    |
+| src/DSCEngine.sol               | 82.35% (56/68)  | 86.52% (77/89)  | 62.50% (10/16) | 66.67% (14/21) |
+| src/DecentralizedStableCoin.sol | 66.67% (8/12)   | 71.43% (10/14)  | 50.00% (4/8)   | 100.00% (2/2)  |
+| test/fuzz/Handler.t.sol         | 0.00% (0/28)    | 0.00% (0/35)    | 0.00% (0/10)   | 0.00% (0/4)    |
+| test/fuzz/InvariantsTest.t.sol  | 0.00% (0/13)    | 0.00% (0/18)    | 0.00% (0/2)    | 0.00% (0/3)    |
+| test/mocks/MockMoreDebtDSC.sol  | 0.00% (0/13)    | 0.00% (0/15)    | 0.00% (0/8)    | 0.00% (0/2)    |
+| test/mocks/MockV3Aggregator.sol | 46.67% (7/15)   | 46.67% (7/15)   | 100.00% (0/0)  | 40.00% (2/5)   |
+| Total                           | 41.76% (71/170) | 43.72% (94/215) | 30.43% (14/46) | 45.00% (18/40) |
 
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
