@@ -10,10 +10,10 @@ When an user is undercollateralized, a liquidator has the option to pay back X D
 
 Follows Patrick Collin's Cyfrin 2023 course on Stablecoin.
 
-*Stability mechanism (minting): algorithmic*
+**Stability mechanism (minting): algorithmic** <br> 
 No controlling entity
 
-*Collateral: Exogenous (crypto)*
+**Collateral: Exogenous (crypto)**<br> 
 Ethereum and Bitcoin collateralizes this stablecoin. Specifically wETH, wBTC.
 
 ### Roadmap
